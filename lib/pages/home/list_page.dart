@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 class ListPage extends StatefulWidget {
-  ListPage({Key? key}) : super(key: key);
+  const ListPage({Key? key}) : super(key: key);
 
   @override
   State<ListPage> createState() => _ListPageState();
 }
 
 class _ListPageState extends State<ListPage> {
-  final Listmember members = Listmember();
+  final members = ListMemberStore();
 
   @override
   void initState() {
@@ -25,14 +25,14 @@ class _ListPageState extends State<ListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Demo mobx'),
+        title: const Text('Demo mobx'),
         actions: [
           IconButton(
               onPressed: () async {
                 await Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => AddMember(),
+                      builder: (context) => const AddMember(),
                     ));
                 await members.getAllEmployee();
               },
@@ -46,10 +46,10 @@ class _ListPageState extends State<ListPage> {
               builder: (BuildContext context) => ListView.separated(
                   padding: EdgeInsets.zero,
                   shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
                     return Card(
-                      margin: EdgeInsets.symmetric(horizontal: 10),
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -82,11 +82,11 @@ class _ListPageState extends State<ListPage> {
                     );
                   },
                   separatorBuilder: (context, index) {
-                    return Divider();
+                    return const Divider();
                   },
                   itemCount: members.members.length),
             ),
-            Divider(),
+            const Divider(),
             SizedBox(
               width: double.infinity,
               child: Card(

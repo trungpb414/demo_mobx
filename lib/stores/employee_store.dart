@@ -25,12 +25,6 @@ abstract class _EmployeesStore with Store {
     } finally {
       isLoading = false;
     }
-    // _repository.getAllEmployee().then((result) {
-    //   members = result;
-    //   isLoading = false;
-    // }).catchError((_) {
-    //   isLoading = false;
-    // });
   }
 
   @action

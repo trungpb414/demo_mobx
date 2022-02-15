@@ -13,8 +13,8 @@ mixin _$EditMemberViewModel on _EditMemberViewModelBase, Store {
       AsyncAction('_EditMemberViewModelBase.editMember');
 
   @override
-  Future<dynamic> editMember(Member member) {
-    return _$editMemberAsyncAction.run(() => super.editMember(member));
+  Future<dynamic> editMember(int? id) {
+    return _$editMemberAsyncAction.run(() => super.editMember(id));
   }
 
   final _$deleteMemberAsyncAction =

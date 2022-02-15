@@ -4,9 +4,9 @@ import 'package:mobx/mobx.dart';
 
 part 'list_member.g.dart';
 
-class Listmember = _ListMember with _$Listmember;
+class ListMemberStore = _ListMemberStoreBase with _$ListMemberStore;
 
-abstract class _ListMember with Store {
+abstract class _ListMemberStoreBase with Store {
   final _employeesStore = EmployeesStore();
 
   @computed
@@ -35,7 +35,7 @@ abstract class _ListMember with Store {
       return '';
     }
     int temp = members[0].yob ?? 0;
-    String member = members[0].name!;
+    String member = members[0].name ?? '';
     for (var element in members) {
       if (temp > (element.yob ?? 0)) {
         temp = element.yob ?? 0;

@@ -12,29 +12,18 @@ class EditPage extends StatefulWidget {
 }
 
 class _EditPageState extends State<EditPage> {
-  final _formKey = GlobalKey<FormState>();
-
-  final nameController = TextEditingController();
-  final ageController = TextEditingController();
-  final salaryController = TextEditingController();
-
   final _editMember = EditMemberViewModel();
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    nameController.text = widget.member.name ?? '';
-    ageController.text = widget.member.yob.toString();
-    salaryController.text = widget.member.salary.toString();
+    _editMember.initController(widget.member);
   }
 
   @override
   void dispose() {
-    nameController.dispose();
-    ageController.dispose();
-    salaryController.dispose();
     super.dispose();
+    _editMember.disposeController();
   }
 
   @override
@@ -43,18 +32,18 @@ class _EditPageState extends State<EditPage> {
       appBar: AppBar(),
       body: Center(
         child: Form(
-          key: _formKey,
+          key: _editMember.formKey,
           child: Column(
             children: [
               Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
-                  controller: nameController,
-                  decoration: InputDecoration(
+                  controller: _editMember.nameController,
+                  decoration: const InputDecoration(
                     label: Text('name'),
                   ),
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
+                    if (value?.isEmpty ?? true) {
                       return 'Cannot be left blank';
                     }
                     return null;
@@ -64,13 +53,13 @@ class _EditPageState extends State<EditPage> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
-                  controller: ageController,
+                  controller: _editMember.ageController,
                   keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     label: Text('age'),
                   ),
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
+                    if (value?.isEmpty ?? true) {
                       return 'Cannot be left blank';
                     }
                     return null;
@@ -80,13 +69,13 @@ class _EditPageState extends State<EditPage> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
-                  controller: salaryController,
+                  controller: _editMember.salaryController,
                   keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     label: Text('salary'),
                   ),
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
+                    if (value?.isEmpty ?? true) {
                       return 'Cannot be left blank';
                     }
                     return null;
@@ -97,38 +86,32 @@ class _EditPageState extends State<EditPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CustomButton(
-                    icon: Icon(Icons.edit),
+                    icon: const Icon(Icons.edit),
                     label: 'Edit',
                     onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        await _editMember.editMember(Member(
-                            id: widget.member.id,
-                            name: nameController.text,
-                            yob: int.parse(ageController.text),
-                            salary: double.parse(salaryController.text)));
-                        Navigator.pop(context);
-                      }
+                      await _editMember.editMember(widget.member.id);
+                      Navigator.pop(context);
                     },
                   ),
                   const SizedBox(
                     width: 10,
                   ),
                   CustomButton(
-                    icon: Icon(Icons.delete),
+                    icon: const Icon(Icons.delete),
                     label: 'Del',
                     onPressed: () async {
                       await showDialog(
                         context: context,
                         builder: (_) => AlertDialog(
-                            title: Text('Warning!'),
-                            content: Text(
+                            title: const Text('Warning!'),
+                            content: const Text(
                                 'This item will be pernament delete. Continue?'),
                             actions: [
                               CustomButton(
                                   onPressed: () async {
                                     Navigator.pop(context);
                                   },
-                                  icon: Icon(Icons.cancel),
+                                  icon: const Icon(Icons.cancel),
                                   label: 'Cancel'),
                               CustomButton(
                                   onPressed: () async {
@@ -137,7 +120,7 @@ class _EditPageState extends State<EditPage> {
                                     Navigator.pop(context);
                                     Navigator.pop(context);
                                   },
-                                  icon: Icon(Icons.delete),
+                                  icon: const Icon(Icons.delete),
                                   label: 'Delele'),
                             ]),
                       );

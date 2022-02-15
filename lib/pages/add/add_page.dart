@@ -11,19 +11,11 @@ class AddMember extends StatefulWidget {
 }
 
 class _AddMemberState extends State<AddMember> {
-  final _formKey = GlobalKey<FormState>();
-
-  final nameController = TextEditingController();
-  final ageController = TextEditingController();
-  final salaryController = TextEditingController();
-
-  final addMember = AddMemberViewModel();
+  final _addMember = AddMemberViewModel();
 
   @override
   void dispose() {
-    nameController.dispose();
-    ageController.dispose();
-    salaryController.dispose();
+    _addMember.disposeController();
     super.dispose();
   }
 
@@ -31,18 +23,18 @@ class _AddMemberState extends State<AddMember> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add member'),
+        title: const Text('Add member'),
       ),
       body: Center(
         child: Form(
-          key: _formKey,
+          key: _addMember.formKey,
           child: Column(
             children: [
               Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
-                  controller: nameController,
-                  decoration: InputDecoration(
+                  controller: _addMember.nameController,
+                  decoration: const InputDecoration(
                     label: Text('ten'),
                   ),
                   validator: (value) {
@@ -56,9 +48,9 @@ class _AddMemberState extends State<AddMember> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
-                  controller: ageController,
+                  controller: _addMember.ageController,
                   keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     label: Text('nam sinh'),
                   ),
                   validator: (value) {
@@ -72,9 +64,9 @@ class _AddMemberState extends State<AddMember> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
-                  controller: salaryController,
+                  controller: _addMember.salaryController,
                   keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     label: Text('luong'),
                   ),
                   validator: (value) {
@@ -87,16 +79,13 @@ class _AddMemberState extends State<AddMember> {
               ),
               ElevatedButton.icon(
                   onPressed: () async {
-                    if (_formKey.currentState!.validate()) {
-                      await addMember.addMember(Member(
-                          name: nameController.text,
-                          yob: int.parse(ageController.text),
-                          salary: double.parse(salaryController.text)));
+                    if (_addMember.formKey.currentState!.validate()) {
+                      await _addMember.addMember();
                       Navigator.pop(context);
                     }
                   },
-                  icon: Icon(Icons.add),
-                  label: Text('Add'))
+                  icon: const Icon(Icons.add),
+                  label: const Text('Add'))
             ],
           ),
         ),

@@ -13,8 +13,8 @@ mixin _$AddMemberViewModel on _AddMemberViewModelBase, Store {
       AsyncAction('_AddMemberViewModelBase.addMember');
 
   @override
-  Future<dynamic> addMember(Member member) {
-    return _$addMemberAsyncAction.run(() => super.addMember(member));
+  Future<dynamic> addMember() {
+    return _$addMemberAsyncAction.run(() => super.addMember());
   }
 
   @override
