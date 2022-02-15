@@ -18,12 +18,19 @@ abstract class _EmployeesStore with Store {
   @action
   Future getAll() async {
     isLoading = true;
-    _repository.getAllEmployee().then((result) {
-      members = result;
+    try {
+      members = await _repository.getAllEmployee();
+    } catch (e) {
+      print(e.toString());
+    } finally {
       isLoading = false;
-    }).catchError((_) {
-      isLoading = false;
-    });
+    }
+    // _repository.getAllEmployee().then((result) {
+    //   members = result;
+    //   isLoading = false;
+    // }).catchError((_) {
+    //   isLoading = false;
+    // });
   }
 
   @action
