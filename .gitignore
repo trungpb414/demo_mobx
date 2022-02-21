@@ -30,6 +30,8 @@
 .pub-cache/
 .pub/
 /build/
+lib/data/model/member.freezed.dart
+lib/data/model/member.g.dart
 
 # Web related
 lib/generated_plugin_registrant.dart

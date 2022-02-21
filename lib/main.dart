@@ -1,4 +1,4 @@
-// import 'package:demo_mobx/pages/home/list_page.dart';
+import 'package:demo_mobx/pages/home/list_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
